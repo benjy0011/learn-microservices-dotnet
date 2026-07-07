@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj": {}
+    "C:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj": {}
   },
   "projects": {
-    "c:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj": {
+    "C:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj",
+        "projectUniqueName": "C:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj",
         "projectName": "AuctionService",
-        "projectPath": "c:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj",
+        "projectPath": "C:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\AuctionService.csproj",
         "packagesPath": "C:\\Users\\benjy\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\obj\\",
+        "outputPath": "C:\\Users\\benjy\\Desktop\\learn-dotnet-microservice\\Carsties\\src\\AuctionService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,22 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[1.1.0.118, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.9, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
