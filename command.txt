@@ -1,0 +1,4 @@
+docker compose up -d
+
+dotnet ef migrations add "InitialCreate" -o Data/Migrations
+dotnet ef database update
