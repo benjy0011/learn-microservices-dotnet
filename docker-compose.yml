@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgrespw
+    ports:
+      - 5432:5432 # HOST(doorway for outside connection):CONTAINER(Postgre port, default is 5432)
+    volumes:
+      - pgdata:/var/lib/postgresql # use internal storage
+
+volumes:
+  pgdata:
