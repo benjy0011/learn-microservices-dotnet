@@ -11,6 +11,10 @@ builder.Services.AddDbContext<AuctionDbContext>(opt =>
 });
 
 
+// It will look into any class with Profile
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 var app = builder.Build();
 
 app.UseAuthorization();
