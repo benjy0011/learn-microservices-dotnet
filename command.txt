@@ -1,3 +1,4 @@
+# docker related
 docker compose up -d
 
 dotnet ef migrations add "InitialCreate" -o Data/Migrations

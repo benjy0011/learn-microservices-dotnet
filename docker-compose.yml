@@ -6,7 +6,18 @@ services:
     ports:
       - 5432:5432 # HOST(doorway for outside connection):CONTAINER(Postgre port, default is 5432)
     volumes:
-      - pgdata:/var/lib/postgresql # use internal storage
+      - pgdata:/var/lib/postgresql # default path for Postgres storage
+                                    # pgdata:/var/lib/postgresql/data is for other version, pg18 doesnt need /data
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongopw
+    ports:
+      - 27017:27017 # left 27017 -> open for localhost to connect | right 27017 -> docker connecting to mongdb enginer (hardcoded by author)
+    volumes:
+      - mongodata:/data/db # author hard coded, same as postgre
 
 volumes:
   pgdata:
+  mongodata:
