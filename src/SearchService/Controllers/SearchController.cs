@@ -12,9 +12,13 @@ public class SearchController : ControllerBase
     
 
     [HttpGet]
-    public async Task<ActionResult<List<Item>>> SearchItems([FromQuery]string searchTerm)
+    public async Task<ActionResult<List<Item>>> SearchItems(
+        [FromQuery]string searchTerm, 
+        [FromQuery]int pageNumber = 1,
+        [FromQuery]int pageSize = 4
+    )
     {
-        var query = DB.Find<Item>();
+        var query = DB.PagedSearch<Item>();
 
         query.Sort(x => x.Ascending(a => a.Make));
 
@@ -23,8 +27,16 @@ public class SearchController : ControllerBase
             query.Match(Search.Full, searchTerm).SortByTextScore();
         }
 
+        query.PageNumber(pageNumber);
+        query.PageSize(pageSize);
+
         var result = await query.ExecuteAsync();
 
-        return result;
+        return Ok(new
+        {
+            result = result.Results,
+            pageCount = result.PageCount,
+            totalCount = result.TotalCount
+        });
     }
 }
