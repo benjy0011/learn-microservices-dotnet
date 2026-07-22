@@ -1,5 +1,9 @@
 # docker related
 docker compose up -d
+docker volume rm carsties_mongodata
+
+
+
 
 dotnet ef migrations add "InitialCreate" -o Data/Migrations
 dotnet ef database update
