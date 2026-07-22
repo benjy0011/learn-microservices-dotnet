@@ -18,6 +18,13 @@ services:
     volumes:
       - mongodata:/data/db # author hard coded, same as postgre
 
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672 # management port
+
 volumes:
   pgdata:
   mongodata:
