@@ -13,3 +13,11 @@ dotnet ef database drop
 # For creating new API project
 dotnet new webapi -o src/SearchService -controllers
 dotnet sln add src/SearchService
+
+
+
+## Link AuctionService and SearchService with one contract, no need to duplicate classes
+dotnet new classlib -o src/Contracts
+dotnet sln add src/Contracts
+# inside Auction and Search
+dotnet add reference ../../src/Contracts
