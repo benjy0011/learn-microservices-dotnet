@@ -55,12 +55,12 @@ public class AuctionsController(AuctionDbContext context, IMapper mapper, IPubli
 
         _context.Auctions.Add(auction);
 
-        // 0 means nothing is saved
-        var result = await _context.SaveChangesAsync() > 0;
-
         var newAuction = _mapper.Map<AuctionDto>(auction);
 
         await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+
+        // 0 means nothing is saved
+        var result = await _context.SaveChangesAsync() > 0;
 
         if (!result) return BadRequest("Could not save changes to the DB");
 

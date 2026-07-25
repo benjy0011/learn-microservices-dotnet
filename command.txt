@@ -8,6 +8,7 @@ docker volume rm carsties_mongodata
 dotnet ef migrations add "InitialCreate" -o Data/Migrations
 dotnet ef database update
 dotnet ef database drop
+dotnet ef migrations add Outbox
 
 
 # For creating new API project
