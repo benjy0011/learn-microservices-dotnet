@@ -23,6 +23,21 @@ builder.Services.AddMassTransit(x =>
 
   x.UsingRabbitMq((context, cfg) =>
   {
+    // Explicitly create and configure the RabbitMQ queue used by this consumer.
+    cfg.ReceiveEndpoint("search-auction-created", e =>
+    {
+      // For each AuctionCreated message received by search-auction-created:
+      // 1. AuctionCreatedConsumer runs.
+      // 2. If it throws—for example, item.SaveAsync() fails because MongoDB is down—MassTransit waits 5 seconds.
+      // 3. It retries the same consumer/message up to 5 times.
+      //    So there can be 6 total attempts
+      e.UseMessageRetry(r => r.Interval(5, 5)); // 5 times retry, 5 seconds interval
+
+      // Connect AuctionCreatedConsumer so it receives AuctionCreated messages from this queue.
+      e.ConfigureConsumer<AuctionCreatedConsumer>(context);
+    });
+
+    // Automatically configure endpoints for any other registered consumers.
     cfg.ConfigureEndpoints(context);
   });
 });
