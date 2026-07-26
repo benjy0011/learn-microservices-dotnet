@@ -1,3 +1,4 @@
+using AuctionService.Consumers;
 using AuctionService.Data;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,14 @@ builder.Services.AddMassTransit(x =>
     // Send published messages through the database outbox before RabbitMQ.
     o.UseBusOutbox();
   });
+
+
+  // Discover and register AuctionCreatedFaultConsumer so MassTransit creates its receive endpoint.
+  x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
+  // Prefix automatically generated endpoint/queue names with "auction".
+  // "auction" + "AuctionCreatedFaultConsumer" → auction-auction-created-fault
+  x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
+
 
   // Use RabbitMQ to deliver messages between microservices.
   x.UsingRabbitMq((context, cfg) =>

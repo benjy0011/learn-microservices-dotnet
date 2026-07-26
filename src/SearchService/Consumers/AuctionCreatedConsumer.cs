@@ -17,6 +17,8 @@ public class AuctionCreatedConsumer(IMapper mapper) : IConsumer<AuctionCreated>
         // Item inherits from MongoDB.Entities Entity, so it can save directly to the DB
         var item = _mapper.Map<Item>(context.Message);
 
+        if (item.Model == "Foo") throw new ArgumentException("Cannot sell cars with name of Foo");
+
         await item.SaveAsync();
     }
 }
