@@ -1,5 +1,6 @@
 # docker related
 docker compose up -d
+docker compose down --volumes
 docker volume rm carsties_mongodata
 
 

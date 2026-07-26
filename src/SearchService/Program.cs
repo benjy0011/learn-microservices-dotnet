@@ -16,6 +16,7 @@ builder.Services.AddHttpClient<AuctionSvcHttpClient>().AddPolicyHandler(GetPolic
 
 builder.Services.AddMassTransit(x =>
 {
+  // Auto search for namespace, dont need to add for new consumer class files
   x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
 
   // MassTransit will automatically create and listen to a RabbitMQ queue named: search-auction-created
@@ -35,6 +36,20 @@ builder.Services.AddMassTransit(x =>
 
       // Connect AuctionCreatedConsumer so it receives AuctionCreated messages from this queue.
       e.ConfigureConsumer<AuctionCreatedConsumer>(context);
+    });
+
+    cfg.ReceiveEndpoint("search-auction-updated", e =>
+    {
+      e.UseMessageRetry(r => r.Interval(5, 5));
+
+      e.ConfigureConsumer<AuctionUpdatedConsumer>(context);
+    });
+
+    cfg.ReceiveEndpoint("search-auction-deleted", e =>
+    {
+      e.UseMessageRetry(r => r.Interval(5, 5));
+
+      e.ConfigureConsumer<AuctionDeletedConsumer>(context);
     });
 
     // Automatically configure endpoints for any other registered consumers.
