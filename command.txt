@@ -16,6 +16,8 @@ dotnet ef migrations add Outbox
 dotnet new webapi -o src/SearchService -controllers
 dotnet sln add src/SearchService
 
+# Initialize all the dotnet ignore file at main project
+dotnet new gitignore
 
 
 ## Link AuctionService and SearchService with one contract, no need to duplicate classes
@@ -23,3 +25,8 @@ dotnet new classlib -o src/Contracts
 dotnet sln add src/Contracts
 # inside Auction and Search
 dotnet add reference ../../src/Contracts
+
+
+## Identity Service
+dotnet new install Duende.Templates
+dotnet new duende-is -o src/DuendeIdentityServer
