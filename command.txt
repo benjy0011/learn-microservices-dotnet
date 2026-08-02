@@ -30,3 +30,9 @@ dotnet add reference ../../src/Contracts
 ## Identity Service
 dotnet new install Duende.Templates
 dotnet new duende-is -o src/DuendeIdentityServer
+
+
+# Reverse Proxy (Gateway service)
+dotnet new web -o src/GatewayService
+dotnet sln add src/GatewayService
+dotnet build
