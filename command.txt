@@ -41,4 +41,6 @@ dotnet build
 ## Dockerize services
 docker build -f src/AuctionService/Dockerfile -t testing123 .
 docker compose build auction-svc
-docker compose up -d 
+docker compose up -d
+docker compose build search-svc
+docker compose up -d             # this can reset for new changes applied
