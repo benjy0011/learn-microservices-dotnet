@@ -36,3 +36,7 @@ dotnet new duende-is -o src/DuendeIdentityServer
 dotnet new web -o src/GatewayService
 dotnet sln add src/GatewayService
 dotnet build
+
+
+## Dockerize services
+docker build -f src/AuctionService/Dockerfile -t testing123 .
