@@ -48,3 +48,6 @@ docker compose up -d             # this can reset for new changes applied
 
 docker compose build identity-svc
 docker compose up -d
+
+docker compose build gateway-svc
+docker compose up -d
