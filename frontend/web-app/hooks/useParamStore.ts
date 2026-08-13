@@ -13,10 +13,10 @@ type Actions = {
 }
 
 const initialState: State = {
-  pageNumber: 1,
-  pageSize: 12,
-  pageCount: 1,
-  searchTerm: '',
+  pageNumber: 1,    // client decision
+  pageSize: 12,     // client decision
+  pageCount: 1,     // server computed
+  searchTerm: '',   // client decision
 }
 
 export const useParamsStore = create<State & Actions>((set) => ({
