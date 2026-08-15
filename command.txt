@@ -39,7 +39,7 @@ dotnet build
 
 
 ## Dockerize services (in Carties root directory)
-docker build -f src/AuctionService/Dockerfile -t testing123 .
+docker build -f src/AuctionService/Dockerfile -t testing123 .  // this is manual way of building image
 docker compose build auction-svc
 docker compose up -d
 
