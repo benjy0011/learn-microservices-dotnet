@@ -6,6 +6,7 @@ type State = {
   pageCount: number;
   searchTerm: string;
   orderBy: 'make' | 'new' | 'endingSoon' | string;
+  filterBy: 'finished' | 'endingSoon' | string;
 }
 
 type Actions = {
@@ -19,6 +20,7 @@ const initialState: State = {
   pageCount: 1,     // server computed
   searchTerm: '',   // client decision
   orderBy: 'make',
+  filterBy: 'live',
 }
 
 export const useParamsStore = create<State & Actions>((set) => ({

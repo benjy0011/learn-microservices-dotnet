@@ -18,6 +18,7 @@ export default function Listings() {
       pageSize: state.pageSize,
       searchTerm: state.searchTerm,
       orderBy: state.orderBy,
+      filterBy: state.filterBy,
     }))
   );
 
@@ -47,6 +48,10 @@ export default function Listings() {
           />
         ))}
       </div>
+
+      {data && data.results.length === 0 && (
+        <h3 className="text-center text-gray-500 py-4">No results</h3>
+      )}
 
       <div className="flex justify-center mt-4">
         <AppPagination pageChanged={setPageNumber} currentPage={params.pageNumber} pageCount={data.pageCount} />
