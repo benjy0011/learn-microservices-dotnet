@@ -21,8 +21,6 @@ public class SearchController : ControllerBase
         // Second Item: to return
         var query = DB.PagedSearch<Item, Item>();
 
-        query.Sort(x => x.Ascending(a => a.Make));
-
         if (!string.IsNullOrEmpty(searchParams.SearchTerm))
         {
             query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
@@ -30,7 +28,8 @@ public class SearchController : ControllerBase
 
         query = searchParams.OrderBy switch
         {
-            "make" => query.Sort(x => x.Ascending(a => a.Make)),
+            "make" => query.Sort(x => x.Ascending(a => a.Make))
+                .Sort(x => x.Ascending(a => a.Model)),
             "new" => query.Sort(x => x.Descending(a => a.CreatedAt)),
             _ => query.Sort(x => x.Ascending(a => a.AuctionEnd))
         };
