@@ -16,7 +16,8 @@ export default function Listings() {
     useShallow(state => ({
       pageNumber: state.pageNumber,
       pageSize: state.pageSize,
-      searchTerm: state.searchTerm
+      searchTerm: state.searchTerm,
+      orderBy: state.orderBy,
     }))
   );
 
@@ -41,7 +42,7 @@ export default function Listings() {
       <div className="grid grid-cols-4 gap-6">
         {data && data.results.map((auction) => (
           <AuctionCard
-            key={auction.id}
+            key={`${auction.id}-${params.orderBy}`}
             auction={auction}
           />
         ))}
