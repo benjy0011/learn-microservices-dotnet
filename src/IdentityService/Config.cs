@@ -40,6 +40,7 @@ public static class Config
                 AllowOfflineAccess = true,
                 AllowedScopes = {"openid", "profile", "auctionApp"},
                 AccessTokenLifetime = 3600*24*30,
+                AlwaysIncludeUserClaimsInIdToken = true, // Includes the user's claims in the ID token so the client can use them without an extra user-info request.
             }
         };
 }
