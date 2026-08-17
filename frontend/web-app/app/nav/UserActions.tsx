@@ -23,7 +23,9 @@ export default function UserActions({
         Auctions won
       </DropdownItem>
       <DropdownItem icon={AiFillCar}>
-        Sell my car
+        <Link href="/auctions/create">
+          Sell my car
+        </Link>
       </DropdownItem>
       <DropdownItem icon={HiCog}>
         <Link href='/session'>
