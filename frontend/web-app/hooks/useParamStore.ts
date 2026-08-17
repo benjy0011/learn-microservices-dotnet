@@ -7,6 +7,8 @@ type State = {
   searchTerm: string;
   orderBy: 'make' | 'new' | 'endingSoon' | string;
   filterBy: 'finished' | 'endingSoon' | string;
+  seller?: string;
+  winner?: string;
 }
 
 type Actions = {
@@ -21,6 +23,8 @@ const initialState: State = {
   searchTerm: '',   // client decision
   orderBy: 'make',
   filterBy: 'live',
+  seller: undefined,
+  winner: undefined,
 }
 
 export const useParamsStore = create<State & Actions>((set) => ({
