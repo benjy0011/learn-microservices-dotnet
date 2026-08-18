@@ -4,14 +4,20 @@ import { Button, HelperText, Spinner, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from 'react-hook-form'
 import sleep from "../utils/sleep";
+import Input from "../components/Input";
+import { useEffect } from "react";
 
 export default function AuctionForm() {
   const router = useRouter();
-  const { register, handleSubmit, setFocus,
+  const { control, handleSubmit, setFocus,
     formState: {
       isSubmitting, isValid, isDirty, errors,
     }
   } = useForm();
+
+  useEffect(() => {
+    setFocus('make')
+  }, [setFocus]);
 
   async function onSubmit(data: FieldValues) {
     await sleep(2000);
@@ -23,28 +29,20 @@ export default function AuctionForm() {
     <form className="flex flex-col mt-3" onSubmit={handleSubmit(onSubmit)}>
 
       {/* Make */}
-      <div className="mb-3 block">
-        <TextInput
-          {...register('make', { required: 'Make is required' })}
-          placeholder="Make"
-          color={errors?.make && 'failure'}
-        />
-        <HelperText color="failure">
-          {errors.make?.message as string}
-        </HelperText>
-      </div>
+      <Input
+        name="make"
+        label="Make"
+        control={control}
+        rules={{ required: 'Make is required' }}
+      />
 
       {/* Model */}
-      <div className="mb-3 block">
-        <TextInput
-          {...register('model', { required: 'Model is required' })}
-          placeholder="Model"
-          color={errors?.model && 'failure'}
-        />
-        <HelperText color="failure">
-          {errors.model?.message as string}
-        </HelperText>
-      </div>
+      <Input
+        name="model"
+        label="Model"
+        control={control}
+        rules={{ required: 'Model is required' }}
+      />
 
       <div className="flex justify-between">
         <Button color='alternative' onClick={() => router.push('/') }>
