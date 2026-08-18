@@ -6,3 +6,12 @@
 [role=button], button {
   cursor: pointer;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+  margin-bottom: 0.45rem;
+}
+
+.react-datepicker__input-container {
+  height: 2.65rem;
+}

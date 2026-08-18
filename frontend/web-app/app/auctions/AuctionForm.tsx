@@ -6,6 +6,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import sleep from "../utils/sleep";
 import Input from "../components/Input";
 import { useEffect } from "react";
+import DateInput from "../components/DateInput";
 
 export default function AuctionForm() {
   const router = useRouter();
@@ -86,11 +87,12 @@ export default function AuctionForm() {
         />
 
         {/* Auction end date */}
-        <Input
+        <DateInput
           name="auctionEnd"
           label="Auction end date/time"
-          type="date"
           control={control}
+          showTimeSelect
+          dateFormat={'dd MMMM yyy h:mm a'}
           rules={{ required: 'Auction end date is required' }}
         />
       </div>
