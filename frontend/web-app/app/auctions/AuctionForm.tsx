@@ -13,7 +13,9 @@ export default function AuctionForm() {
     formState: {
       isSubmitting, isValid, isDirty, errors,
     }
-  } = useForm();
+  } = useForm({
+    mode: 'onTouched',
+  });
 
   useEffect(() => {
     setFocus('make')
@@ -43,6 +45,58 @@ export default function AuctionForm() {
         control={control}
         rules={{ required: 'Model is required' }}
       />
+
+      {/* Color */}
+      <Input
+        name="color"
+        label="Color"
+        control={control}
+        rules={{ required: 'Color is required' }}
+      />
+
+
+      <div className="grid grid-cols-2 gap-3">
+        {/* Year */}
+        <Input
+          name="year"
+          label="Year"
+          type="number"
+          control={control}
+          rules={{ required: 'Year is required' }}
+        />
+
+        {/* Mileage */}
+        <Input
+          name="mileage"
+          label="Mileage"
+          type="number"
+          control={control}
+          rules={{ required: 'Mileage is required' }}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        {/* Reserve Price */}
+        <Input
+          name="reservePrice"
+          label="Reserve price (enter 0 if no reserve price)"
+          type="number"
+          control={control}
+          rules={{ required: 'Reserve Price is required' }}
+        />
+
+        {/* Auction end date */}
+        <Input
+          name="auctionEnd"
+          label="Auction end date/time"
+          type="date"
+          control={control}
+          rules={{ required: 'Auction end date is required' }}
+        />
+      </div>
+
+
+
 
       <div className="flex justify-between">
         <Button color='alternative' onClick={() => router.push('/') }>
