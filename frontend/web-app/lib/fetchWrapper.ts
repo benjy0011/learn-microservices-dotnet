@@ -37,7 +37,7 @@ async function post(url: string, body: unknown) {
   return handleResponse(response);
 }
 
-async function del(url: string, body: unknown) {
+async function del(url: string) {
   const requestOptions = {
     method: 'DELETE',
     headers: await getHeaders(),
