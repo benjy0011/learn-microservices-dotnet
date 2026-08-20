@@ -8,7 +8,7 @@ namespace BiddingService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BidController : ControllerBase
+public class BidsController : ControllerBase
 {
     [Authorize]
     [HttpPost]
