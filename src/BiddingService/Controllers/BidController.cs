@@ -12,7 +12,7 @@ public class BidController : ControllerBase
 {
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Bid>> PlaceBid(string auctionId, int amount)
+    public async Task<ActionResult<Bid>> PlaceBid(string auctionId, int amount) // using params "?auctionId=123&amount=123"
     {
         var auction = await DB.Default.Find<Auction>().OneAsync(auctionId);
 
@@ -61,5 +61,16 @@ public class BidController : ControllerBase
         await DB.Default.SaveAsync(bid);
 
         return Ok(bid);
+    }
+
+    [HttpGet("{auctionId}")]
+    public async Task<ActionResult<List<Bid>>> GetBidsForAuction(string auctionId)
+    {
+        var bids = await DB.Default.Find<Bid>()
+            .Match(a => a.AuctionId == auctionId)
+            .Sort(b => b.Descending(a => a.BidTime))
+            .ExecuteAsync();
+
+        return bids;
     }
 }
