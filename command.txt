@@ -53,3 +53,9 @@ docker compose build gateway-svc
 docker compose up -d
 
 docker compose down -v      # remove storage too
+
+
+## Bid Service
+(at /Carties)
+dotnet new webapi -o src/BiddingService -controllers
+dotnet sln add src/BiddingService
