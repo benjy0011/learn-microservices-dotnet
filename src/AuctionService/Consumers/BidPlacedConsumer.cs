@@ -17,7 +17,17 @@ public class BidPlacedConsumer : IConsumer<BidPlaced>
     {
         Console.WriteLine("--> Consuming bid placed");
 
-        var auction = await _dbContext.Auctions.FindAsync(context.Message.AuctionId);
+        if (!Guid.TryParse(context.Message.AuctionId, out var auctionId))
+        {
+            throw new ArgumentException($"Invalid auction ID: {context.Message.AuctionId}");
+        }
+
+        var auction = await _dbContext.Auctions.FindAsync(auctionId);
+
+        if (auction is null)
+        {
+            return;
+        }
 
         if (auction.CurrentHighBid == null 
             || context.Message.BidStatus.Contains("Accepted")
