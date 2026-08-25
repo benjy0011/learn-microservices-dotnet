@@ -66,5 +66,5 @@ dotnet add reference ../../src/Contracts
 
 
 ## grpc
-(at AuctionService after configuring .proto)
+(at AuctionService/Bidding after configuring .proto)
 dotnet build

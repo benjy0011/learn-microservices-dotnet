@@ -1,6 +1,7 @@
 using AutoMapper;
 using BiddingService.DTOs;
 using BiddingService.Models;
+using BiddingService.Services;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -12,10 +13,11 @@ namespace BiddingService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BidsController(IMapper mapper, IPublishEndpoint publishEndpoint) : ControllerBase
+public class BidsController(IMapper mapper, IPublishEndpoint publishEndpoint, GrpcAuctionClient grpcClient) : ControllerBase
 {
     private readonly IMapper _mapper = mapper;
     private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
+    private readonly GrpcAuctionClient _grpcClient = grpcClient;
 
     [Authorize]
     [HttpPost]
@@ -25,8 +27,9 @@ public class BidsController(IMapper mapper, IPublishEndpoint publishEndpoint) : 
 
         if (auction == null)
         {
-            // TODO: check with auction service if that has auction
-            return NotFound();
+            auction = _grpcClient.GetAuction(auctionId);
+
+            if (auction == null) return BadRequest("Cannot accept bids on this auction at this time.");
         }
 
         if (auction.Seller == User.Identity.Name)
