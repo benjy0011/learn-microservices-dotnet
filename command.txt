@@ -62,3 +62,9 @@ dotnet sln add src/BiddingService
 
 (at /BiddingService)
 dotnet add reference ../../src/Contracts
+
+
+
+## grpc
+(at AuctionService after configuring .proto)
+dotnet build
