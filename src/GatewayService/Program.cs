@@ -21,7 +21,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     options.TokenValidationParameters.NameClaimType = "username";
   });
 
+
+var clientApp = builder.Configuration["ClientApp"]
+    ?? throw new InvalidOperationException(
+        "The ClientApp configuration setting is required.");
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("customPolicy", policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins(clientApp);
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors();
 
 app.MapReverseProxy();
 
