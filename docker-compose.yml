@@ -147,6 +147,24 @@ services:
       rabbitmq:
         condition: service_healthy
 
+
+
+  notify-svc:
+    image: benjy0011/notify-svc:latest
+    build:
+      context: .
+      dockerfile: src/NotificationService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMq__HOST=rabbitmq
+    ports:
+      - 7004:80 # using same internal 80 port cuz each docker having indivdual internal port
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+
 volumes:
   pgdata:
   mongodata:

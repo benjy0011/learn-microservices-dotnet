@@ -83,3 +83,8 @@ dotnet sln add src/NotificationService
 
 (at NotificationService)
 dotnet add reference ../../src/Contracts
+
+(docker for NotificationService)
+docker compose build notify-svc
+docker compose down -v
+docker compose up -d
