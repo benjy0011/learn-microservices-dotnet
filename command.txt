@@ -68,3 +68,9 @@ dotnet add reference ../../src/Contracts
 ## grpc
 (at AuctionService/Bidding after configuring .proto)
 dotnet build
+
+(after configuring Auction and Bidding + root docker)
+(at Carties root)
+docker compose build
+docker compose down -v
+docker compose up -d
