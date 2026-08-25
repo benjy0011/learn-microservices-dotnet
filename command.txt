@@ -74,3 +74,12 @@ dotnet build
 docker compose build
 docker compose down -v
 docker compose up -d
+
+
+## notification svc
+(at Carsties)
+dotnet new web -o src/NotificationService
+dotnet sln add src/NotificationService
+
+(at NotificationService)
+dotnet add reference ../../src/Contracts
