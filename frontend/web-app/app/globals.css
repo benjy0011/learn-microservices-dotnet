@@ -21,3 +21,9 @@
 .react-datepicker__input-container {
   height: 2.65rem;
 }
+
+@layer components {
+  .input-custom {
+    @apply grow pr-4 bg-transparent focus:outline-none border-transparent focus:border-transparent focus:ring-0 text-sm text-gray-600
+  }
+}

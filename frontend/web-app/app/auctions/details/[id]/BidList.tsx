@@ -8,6 +8,9 @@ import { User } from "next-auth"
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import BidItem from "./BidItem";
+import { numberWithCommas } from "@/lib/numberWithCommas";
+import EmptyFilter from "@/app/components/EmptyFilter";
+import BidForm from "./BidForm";
 
 type Props = {
   user: User | null;
@@ -21,6 +24,9 @@ export default function BidList({
   const [loading, setLoading] = useState(true);
   const bids = useBidStore(state => state.bids);
   const setBids = useBidStore(state => state.setBids);
+
+  const highBid = bids.reduce((prev, current) =>
+    prev > current.amount ? prev : current.amount, 0);
 
   useEffect(() => {
     getBidsForAuction(auction.id)
@@ -37,11 +43,32 @@ export default function BidList({
   if (loading) return <span>Loading bids...</span>
 
   return (
-    <div className="border-2 rounded-lg p-2 bg-gray-200">
-      <Heading title="Bids" />
-      {bids.map(bid => (
-        <BidItem key={bid.id} bid={bid} />
-      ))}
+    <div className="rounded-lg shadow-md">
+      <div className="py-2 px-4 bg-white">
+        <div className="sticky top-0 bg-white p-2">
+          <Heading title={`Current high bid is $${numberWithCommas(highBid)}`} />
+        </div>
+
+      </div>
+
+      <div className="overflow-auto h-87.5 flex flex-col-reverse px-2">
+        {bids.length === 0 ? (
+          <EmptyFilter
+            title='No bids for this item'
+            subtitle="Please feel free to make a bid"
+          />
+        ) : (
+          <>
+            {bids.map(bid => (
+              <BidItem key={bid.id} bid={bid} />
+            ))}
+          </>
+        )}
+      </div>
+
+      <div className="px-2 pb-2 text-gray-500">
+        <BidForm auctionId={auction.id} highBid={highBid} />
+      </div>
     </div>
   )
 }
