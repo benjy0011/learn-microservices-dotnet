@@ -1,0 +1,3 @@
+1. use amazon s3 (client proxy image upload) mechanism for image upload
+2. update newly added auctions in main page in signalR (currently adding new auction does not update immediately on the homepage, need to consider of user applied filter)
+3. Write a wrapper on React flow bite Input, disable onWheel when input == number
