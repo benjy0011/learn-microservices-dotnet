@@ -9,7 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       id: 'id-server',
       clientId: "nextApp", // match the id configured in Identity Svc
       clientSecret: "secret", // this file is server side code, its save
-      issuer: "http://localhost:5001",
+      issuer: process.env.ID_URL,
       authorization: {
         params: {
           scope: 'openid profile auctionApp'

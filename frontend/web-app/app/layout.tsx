@@ -3,7 +3,7 @@ import "./globals.css";
 import NavBar from "./nav/NavBar";
 import ToasterProvider from "./providers/ToasterProvider";
 import SignalRProvider from "./providers/SignalRProvider";
-import { getCurrentUser } from "./actions/authAction";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Carsties",
@@ -11,22 +11,22 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const user = await getCurrentUser();
-
   return (
     <html
       lang="en"
     >
       <body>
-        <NavBar />
+        <SessionProvider>
+          <NavBar />
 
-        <main className="container mx-auto px-5 pt-10">
-          <SignalRProvider user={user}>
-            {children}
-          </SignalRProvider>
-        </main>
+          <main className="container mx-auto px-5 pt-10">
+            <SignalRProvider>
+              {children}
+            </SignalRProvider>
+          </main>
 
-        <ToasterProvider />
+          <ToasterProvider />
+        </SessionProvider>
       </body>
     </html>
   );
