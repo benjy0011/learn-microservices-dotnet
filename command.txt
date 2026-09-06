@@ -88,3 +88,7 @@ dotnet add reference ../../src/Contracts
 docker compose build notify-svc
 docker compose down -v
 docker compose up -d
+
+## next-js
+docker compose build web-app
+docker compose up -d

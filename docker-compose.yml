@@ -165,6 +165,24 @@ services:
         condition: service_healthy
 
 
+
+  web-app:
+    image: benjy0011/web-app:latest
+    build:
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+    volumes: # for next caching
+      - /var/lib/web/data
+    ports:
+      - 3000:3000
+    environment:
+      - AUTH_SECRET=3b716506378ffbf7838dc9758811a4d7ff18408a3b81c4b6d63639e87c27a1cb
+      - API_URL=http://gateway-svc/
+      - ID_URL=http://localhost:5001
+      - AUTH_URL=http://localhost:3000
+      - AUTH_URL_INTERNAL=http://web-app:3000
+
+
 volumes:
   pgdata:
   mongodata:
