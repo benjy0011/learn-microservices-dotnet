@@ -107,8 +107,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - ClientApp=http://app.carsties.local
-      - IssuerUri=http://id.carsties.local
+      - ClientApp=https://app.carsties.local
+      - IssuerUri=https://id.carsties.local
       - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identity
       - VIRTUAL_HOST=id.carsties.local
     ports:
@@ -126,7 +126,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - ClientApp=http://app.carsties.local
+      - ClientApp=https://app.carsties.local
       - VIRTUAL_HOST=api.carsties.local
 
 
@@ -180,9 +180,9 @@ services:
     environment:
       - AUTH_SECRET=3b716506378ffbf7838dc9758811a4d7ff18408a3b81c4b6d63639e87c27a1cb
       - API_URL=http://gateway-svc/
-      - ID_URL=http://id.carsties.local
+      - ID_URL=https://id.carsties.local
       - ID_URL_INTERNAL=http://identity-svc
-      - AUTH_URL=http://app.carsties.local
+      - AUTH_URL=https://app.carsties.local
       - AUTH_URL_INTERNAL=http://web-app:3000
       - VIRTUAL_HOST=app.carsties.local
       - VIRTUAL_PORT=3000
@@ -194,8 +194,10 @@ services:
     container_name: nginx-proxy
     ports:
       - "80:80"
+      - 443:443 #https port
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./devcerts:/etc/nginx/certs
 
 
 volumes:

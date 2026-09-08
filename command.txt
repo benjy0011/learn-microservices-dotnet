@@ -92,3 +92,15 @@ docker compose up -d
 ## next-js
 docker compose build web-app
 docker compose up -d
+
+
+## nginx
+(remember to update host in window, can search on google)
+
+## ssl
+choco install mkcert # need admin permission
+mkcert -install
+mkdir devcerts
+cd devcerts
+mkcert -key-file carsties.local.key -cert-file carsties.local.crt app.carsties.local api.carsties.local id.carsties.local
+docker compose build web-app # after update to https
