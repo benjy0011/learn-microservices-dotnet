@@ -13,12 +13,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorization: {
         params: {
           scope: 'openid profile auctionApp'
-        }
+        },
+        // Public browser URL for the initial OIDC redirect. This is what the user hits on localhost.
+        url: process.env.ID_URL + '/connect/authorize'
+      },
+      token: {
+        // Docker internal address: the web app container cannot reach localhost of the host.
+        url: `${process.env.ID_URL_INTERNAL}/connect/token`
+      },
+      userinfo: {
+        // Must use the service name from inside Docker to fetch user claims.
+        url: `${process.env.ID_URL_INTERNAL}/connect/token`
       },
       idToken: true
     } as OIDCConfig<Omit<Profile, 'username'>>),
   ],
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Keep login redirects inside the app and prevent open redirect abuse.
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
     async authorized({ auth }) {
       return !!auth;
     },

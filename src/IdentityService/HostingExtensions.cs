@@ -66,11 +66,9 @@ internal static class HostingExtensions
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-
-                if (builder.Environment.IsEnvironment("Docker"))
-                {
-                    options.IssuerUri = "http://localhost:5001";
-                }
+                // This must be the public URL the browser uses outside Docker (e.g. localhost:5001),
+                // not the internal service name like identity-svc used by container-to-container calls.
+                options.IssuerUri = builder.Configuration["IssuerUri"];
 
                 // Use a large chunk size for diagnostic data in development where it will be redirected to a local file.
                 if (builder.Environment.IsDevelopment())
